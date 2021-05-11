@@ -59,10 +59,12 @@ int main(void)
     {
         sin_size = sizeof(struct sockaddr_in);   
         new_sockfd = accept(sockfd, (struct sockaddr*) &client_addr, &sin_size);
+
+        
         if(new_sockfd == -1)
             fail("accecpt connection");
 
-        printf("[INFO]\tnew connection from %s port %d", inet_ntoa(client_addr.sin_addr), ntohs(client_addr.sin_port));
+        printf("[INFO]\tnew connection from %s port %d\n", inet_ntoa(client_addr.sin_addr), ntohs(client_addr.sin_port));
 
         char hello[] = "hello\n";
         send(new_sockfd, hello, sizeof(hello), 0);
@@ -70,7 +72,7 @@ int main(void)
         recv_lenght = recv(new_sockfd, &buffer, 1024, 0);
         while(recv_lenght > 0)
         {
-            printf("[INFO]\trecv bytes from %d", recv_lenght);
+            printf("[INFO]\trecv bytes from %d => \n", recv_lenght);
             dump(buffer, recv_lenght);
             recv_lenght = recv(new_sockfd, &buffer, 1024, 0);
 
